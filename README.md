@@ -1,12 +1,12 @@
 # NodeJS_APP_Example with MongoDB
 
- . Mongoose was used to build the database structure (NoSql)
- . Authentication by PassportJS, where the password is encrypted within the database.
- . Define authorizations within the application
- . MVC Design Pattern was used
- . Responsive UI design
- . Ajax was used to search users
- . Flash messages
+1-  Mongoose was used to build the database structure (NoSql)  
+2-  Authentication by PassportJS, where the password is encrypted within the database  
+3-  Define authorizations within the application  
+4-  MVC Design Pattern was used  
+5-  Responsive UI design  
+6-  Ajax was used to search users  
+7-  Flash messages  
  
  <img width="1010" alt="to1" src="https://user-images.githubusercontent.com/72284697/170837916-873cbd75-dad7-4011-bcbb-47a76d6e90d0.png">
 

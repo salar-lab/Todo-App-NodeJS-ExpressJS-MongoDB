@@ -1,0 +1,25 @@
+/*      To do      */
+.sec-bg {
+    padding-top: 3rem;
+}
+
+p {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+.btn-group-sm>.btn, .btn-size-arrow {
+    padding: 0.25rem 0.6rem;
+}
+
+.btn-group-sm>.btn, .btn-size-x {
+    padding: 0.25rem 0.7rem;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.3;
+    -moz-opacity: 0.3;
+}

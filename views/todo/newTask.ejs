@@ -1,0 +1,114 @@
+<%- include('../partials/header') -%>
+<section>
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-10 col-xl-8">
+                <div class="card text-black mt-5 mb-5 shadow" style="border-radius: 25px;">
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <h2 class="card-title text-center mb-5 mx-1 mx-md-4 mt-4">
+                                Add New Task
+                            </h2>
+                            <form action="/todo/new-task" method="POST"
+                                  class="row justify-content-center mx-1 mx-md-4">
+                                <div class="col-md-10 col-lg-7 col-xl-7 order-2 order-lg-1">
+                                    <div class="ms-md-3 me-md-3 ms-1 me-1 text-center">
+                                        <%- include('../partials/messages') -%>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group d-flex flex-row align-items-center mb-4">
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="titleID">Title</label>
+                                                <input type="text" name="title" id="titleID" class="form-control shadow-none"
+                                                       placeholder="&#128204; add a new task" style="border-color: #ced4da;"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group d-flex flex-row align-items-center mb-4">
+                                            <div class="form-outline flex-fill mb-0">
+                                                <label class="form-label" for="textID">Description</label>
+                                                <textarea name="text" id="textID" class="form-control shadow-none"
+                                                          placeholder="&#128488; add a Description!" style="border-color: #ced4da; height: 200px;"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="input-group d-flex flex-row align-items-center">
+                                            <p class="text-muted">Please specify who will take over this task</p>
+                                        </div>
+                                        <div class="input-group d-flex flex-row align-items-center mb-4">
+                                            <label class="input-group-text rounded-start" for="inputGroupSelect01">
+                                                <i class="fas fa-user-check fa-lg fa-fw me-2"></i>
+                                                Assignee:
+                                            </label>
+                                            <select name="taskType" onchange="showDiv(this)" class="form-select shadow-none" id="inputGroupSelect01" style="border-color: #ced4da;">
+                                                <option value="1" selected>for me</option>
+                                                <option value="2">local task (from this group)</option>
+                                                <option value="3">global Task (from another group)</option>
+                                            </select>
+                                        </div>
+                                        <div class="search-inputs input-group rounded mb-4" style="display: none;">
+                                            <input type="search" class="form-control shadow-none rounded"
+                                                   placeholder="Local Search" id="searchLocalUserName" name="createdToName" style="border-color: #ced4da;" value="" autocomplete="off"/>
+                                            <span class="input-group-text border-0" id="search-addon">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                        </div>
+                                        <div class="search-inputs input-group rounded mb-4" style="display: none;">
+                                            <input type="search" class="form-control shadow-none rounded"
+                                                   placeholder="Global Search" name="global-search" style="border-color: #ced4da;"/>
+                                            <span class="input-group-text border-0" id="search-addon">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                        <a href="/todo">
+                                            <button type="button" class="btn btn-secondary btn-lg me-md-3 me-2">
+                                                <i class="fas fa-arrow-circle-left"></i>&ensp;Back
+                                            </button>
+                                        </a>
+                                        <button type="submit" class="btn btn-success btn-lg" id="btn_new">
+                                            <i class="fas fa-plus"></i>&ensp;Add Task
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    $(function () {
+        $('#searchLocalUserName').autocomplete({
+            source: function (req, res) {
+                if (req.length > 20) {
+                    return;
+                }
+                $.ajax({
+                    url: "/fetchLocalUserData",
+                    dataType: "jsonp",
+                    type: "GET",
+                    data: req,
+                    success: function (data) {
+                        res(data)
+                    },
+                    error: function (err) {
+                        console.log(err.status);
+                    }
+                });
+            },
+            minLength: 1,
+            select: function (event, ui) {
+                if (ui.item) {
+                    $('#searchLocalUserName').val(ui.item.label);
+                }
+            }
+        });
+    });
+</script>
+
+
+<%- include('../partials/footer') -%>

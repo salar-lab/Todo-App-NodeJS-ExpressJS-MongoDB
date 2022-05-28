@@ -1,0 +1,315 @@
+<%- include('../partials/header') -%>
+
+  <section class="sec-bg">
+    <div class="container">
+      <div class="col-md-12">
+        <div class="col-12 text-center mb-3">
+          <%- include('../partials/messages') -%>
+            <h1 class="mt-5">Tasks To Do</h1>
+            <p class="text-muted mt-4">Here you can manage your tasks</p>
+            <div class="d-lg-flex">
+              <a href="/todo/new-task">
+                <button type="button" class="btn btn-outline-success border-0">
+                  <span>
+                    <i class="fas fa-plus"></i>
+                    &ensp;Add New Task
+                  </span>
+                </button>
+              </a>
+            </div>
+        </div>
+        <div class="row justify-content-evenly">
+          <div class="col-lg-4">
+            <div class="row" style="color: #4D5761;">
+              <div class="col-6">
+                <span class="float-start">
+                  <h4>To do</h4>
+                </span>
+              </div>
+              <div class="col-6">
+                <span class="float-end">
+                  <i class="fas fa-list-ul pe-1 h5" style="padding-top: 6px;"></i>
+                </span>
+              </div>
+            </div>
+            <div class="list-group mt-1">
+
+              <% let foundTodo=false %>
+              <% tasks.forEach(task => { %>
+                <% if(task.status==1){ %>
+                  <% foundTodo=true %>
+                  <% return %> 
+                    <% } %>
+                      <% }); %>
+                        <% if(!foundTodo){ %>
+                          <span class="alert alert-danger">No Tasks yet <a href="/todo/new-task">click to create new one</a></span>
+                          <% } %>
+
+
+
+
+              <% tasks.forEach(task=> { %>
+                <% if(task.status==1){ %>
+                  <div class="list-group-item border-0 border-start border-warning border-4 rounded-3 mb-3">
+                    <div class="p-2">
+                      <div>
+                        <h4 style="color: black;">
+                          <%= task.title %>
+
+                        </h4>
+
+                        <div class="">
+                          <p class="text-muted">
+                            <%= task.text %>
+                          </p>
+                        </div>
+                      </div>
+
+                      <% if(task.ownerName) { %>
+                        <span class="text-muted" style="display: block; font-size: x-small; font-style: italic;">Created
+                          from: <%= task.ownerName %> to me</span>
+                        <% } else { %>
+                          <span class="text-muted"
+                            style="display: block; font-size: x-small; font-style: italic;">Created from: Me</span>
+                          <% }%>
+                            <span class="text-muted"
+                              style="display: block; font-size: x-small; font-style: italic; ">Creation date: <%=
+                                task.createDate.toLocaleString('en-GB', { timeZone: 'UTC' }) %></span>
+                            <br>
+
+                            <div class="text-nowrap float-lg-none float-end">
+
+                              <form style="display: inline;" action="/todo/delete/<%= task.id %>?_method=DELETE"
+                                method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button  class="btn btn-danger btn-sm rounded-pill">
+                                  <i class="fas fa-times"></i>&ensp;Delete
+                                </button>
+                              </form>
+
+                              <a href="/todo/edit/<%= task.id %>">
+                                <button type="button" class="btn btn-warning btn-sm rounded-pill">
+                                  <i class="fas fa-edit"></i> Edit
+                                </button>
+                              </a>
+
+
+                              <form style="display: inline;" action="/todo/inprocess/<%= task.id %>?_method=PUT"
+                                method="POST">
+                                <input type="hidden" name="_method" value="PUT">
+                                <button class="btn btn-success btn-sm rounded-pill">
+                                  Start&ensp;<i class="fas fa-arrow-right"></i>
+                                </button>
+                              </form>
+
+                              <a href="/todo/view/<%= task.id %>">
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill float-end ms-1">
+                                  <i class="fas fa-eye"></i>
+                                </button>
+                              </a>
+
+                            </div>
+                    </div>
+                  </div>
+                  <% } %>
+                    <% }); %>
+            </div>
+
+
+
+
+          </div>
+          <div class="col-lg-4">
+            <div class="row" style="color: #4D5761;">
+              <div class="col-6">
+                <span class="float-start">
+                  <h4 class="text-nowrap">In process</h4>
+                </span>
+              </div>
+              <div class="col-6">
+                <span class="float-end">
+                  <i class="fas fa-spinner pe-1 h5" style="padding-top: 6px;"></i>
+                </span>
+              </div>
+            </div>
+            <div class="list-group mt-1">
+
+              <% let foundIn=false %>
+              <% tasks.forEach(task=> { %>
+                <% if(task.status==2){ %>
+                  <% foundIn=true %>
+                  <% return %> 
+                    <% } %>
+                      <% }); %>
+                        <% if(!foundIn){ %>
+                          <span class="alert alert-danger">No tasks in processing</span>
+                          <% } %>
+
+
+              <% tasks.forEach(task=> { %>
+                <% if(task.status==2){ %>
+                  <div class="list-group-item border-0 border-start border-warning border-4 rounded-3 mb-3">
+                    <div class="p-2">
+                      <div>
+                        <h4 style="color: black;">
+                          <%= task.title %>
+                        </h4>
+                        <div class="">
+                          <p class="text-muted">
+                            <%= task.text %>
+                          </p>
+                        </div>
+                      </div>
+
+                      <% if(task.ownerName) { %>
+                        <span class="text-muted" style="display: block; font-size: x-small; font-style: italic;">Created
+                          from: <%= task.ownerName %> to me</span>
+                        <% } else { %>
+                          <span class="text-muted"
+                            style="display: block; font-size: x-small; font-style: italic;">Created from: Me</span>
+                          <% }%>
+                            <span class="text-muted"
+                              style="display: block; font-size: x-small; font-style: italic; ">Creation date: <%=
+                                task.createDate.toLocaleString('en-GB', { timeZone: 'UTC' }) %></span>
+                            <br>
+
+                            <div class="text-nowrap float-lg-none float-end">
+
+                              <form style="display: inline;" action="/todo/delete/<%= task.id %>?_method=DELETE"
+                                method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger btn-sm rounded-pill">
+                                  <i class="fas fa-times"></i>&ensp;Delete
+                                </button>
+                              </form>
+
+                              <a href="/todo/edit/<%= task.id %>">
+                                <button type="button" class="btn btn-warning btn-sm rounded-pill">
+                                  <i class="fas fa-edit"></i> Edit
+                                </button>
+                              </a>
+
+                              <form style="display: inline;" action="/todo/done/<%= task.id %>?_method=PUT"
+                                method="POST">
+                                <input type="hidden" name="_method" value="PUT">
+                                <button class="btn btn-success btn-sm rounded-pill">
+                                  Done&ensp;<i class="fas fa-arrow-right"></i>
+                                </button>
+                              </form>
+                              <a href="/todo/view/<%= task.id %>">
+                                <button type="button" class="btn btn-outline-dark btn-sm rounded-pill float-end ms-1">
+                                  <i class="fas fa-eye"></i>
+                                </button>
+                              </a>
+                            </div>
+                    </div>
+                  </div>
+                  <% } %>
+                    <% }); %>
+            </div>
+
+
+
+
+          </div>
+          <div class="col-lg-4">
+            <div class="row" style="color: #4D5761;">
+              <div class="col-6">
+                <span class="float-start">
+                  <h4>Done</h4>
+                </span>
+              </div>
+              <div class="col-6">
+                <span class="float-end">
+                  <i class="fas fa-check pe-1 h5" style="padding-top: 6px;"></i>
+                </span>
+              </div>
+            </div>
+            <div class="list-group mt-1">
+
+              <% let foundDone=false %>
+              <% tasks.forEach(task=> { %>
+                <% if(task.status==3){ %>
+                  <% foundDone=true %>
+                  <% return %> 
+                    <% } %>
+                      <% }); %>
+                        <% if(!foundDone){ %>
+                          <span class="alert alert-danger">No tasks are Done!</span>
+                          <% } %>
+
+              <% tasks.forEach(task=> { %>
+                <% if(task.status==3){ %>
+                  <div class="list-group-item border-0 border-start border-warning border-4 rounded-3 mb-3">
+                    <div class="p-2">
+                      <div class="disabled">
+                        <h4 style="color: black;">
+                          <%= task.title %>
+                        </h4>
+                        <div class="">
+                          <p class="text-muted">
+                            <%= task.text %>
+                          </p>
+                        </div>
+
+
+                        <% if(task.ownerName) { %>
+                          <span class="text-muted"
+                            style="display: block; font-size: x-small; font-style: italic;">Created from: <%=
+                              task.ownerName %> to me</span>
+                          <% } else { %>
+                            <span class="text-muted"
+                              style="display: block; font-size: x-small; font-style: italic;">Created from: Me</span>
+                            <% }%>
+                              <span class="text-muted"
+                                style="display: block; font-size: x-small; font-style: italic; ">Creation date: <%=
+                                  task.createDate.toLocaleString('en-GB', { timeZone: 'UTC' }) %></span>
+                              <br>
+                      </div>
+                      <div class="text-nowrap float-lg-none float-end">
+
+                        <form style="display: inline;" action="/todo/delete/<%= task.id %>?_method=DELETE"
+                          method="POST">
+                          <input type="hidden" name="_method" value="DELETE">
+                          <button  class="btn btn-danger btn-sm rounded-pill">
+                            <i class="fas fa-times"></i>&ensp;Delete
+                          </button>
+                        </form>
+
+
+                        <button type="button" class="btn btn-warning btn-sm rounded-pill" disabled>
+                          <i class="fas fa-edit"></i> Edit
+                        </button>
+
+
+
+
+                        <button type="button" class="btn btn-success btn-sm rounded-pill" disabled>
+                          Done&ensp;<i class="fas fa-arrow-right"></i>
+                        </button>
+
+
+
+                        <a href="/todo/view/<%= task.id %>">
+                          <button type="button" class="btn btn-outline-dark btn-sm rounded-pill float-end ms-1">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <% } %>
+                    <% }); %>
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%- include('../partials/footer') -%>

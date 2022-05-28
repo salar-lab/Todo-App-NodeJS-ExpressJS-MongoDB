@@ -1,0 +1,38 @@
+<%- include('partials/header') -%>
+    <div class="text-center mb-5 mt-5">
+        <%- include('partials/messages') -%>
+            <h1>Manage your projects</h1>
+            <p class="text-muted mt-4">Manage your projects including your appointments, tasks and contacts</p>
+    </div>
+    <div class="d-lg-flex justify-content-center">
+        <div class="cards border-start border-primary border-4 rounded-3 p-4 m-4 shadow d-grid col-lg-3">
+            <a href="#">
+                <h2 style="color: black;">Appointments</h2>
+                <p class="text-muted">Here you can manage your
+                    appointments</p>
+                <div>
+                    <img class="float-end" src="../images/appointments.png" alt="">
+                </div>
+            </a>
+        </div>
+        <div class="cards border-start border-warning border-4 rounded-3 p-4 m-4 shadow d-grid col-lg-3">
+            <a href="/todo">
+                <h2 style="color: black;">TODO</h2>
+                <p class="text-muted">Here you can manage your tasks</p>
+                <div>
+                    <img class="d-inline-block float-end" src="../images/tasks.png" alt="">
+                </div>
+            </a>
+        </div>
+        <div class="cards border-start border-danger border-4 rounded-3 p-4 m-4 shadow d-grid col-lg-3">
+            <a href="#">
+                <h2 style="color: black;">Contacts</h2>
+                <p class="text-muted">Here you can manage your contacts</p>
+                <div>
+                    <img class="float-end" src="../images/contacts.png" alt="">
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <%- include('partials/footer') -%>

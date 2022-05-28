@@ -1,0 +1,14 @@
+/*      contacts      */
+.section-padding {
+    padding-top: 3rem;
+}
+
+.page_nav li a {
+    color: #000000;
+}
+
+img {
+    cursor: pointer;
+    object-fit: cover;
+    -o-object-fit: cover;
+}

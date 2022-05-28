@@ -1,0 +1,54 @@
+<%- include('partials/header') -%>
+    <section>
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-12 col-xl-11">
+                    <div class="card text-black mt-5 mb-5 shadow" style="border-radius: 25px;">
+                        <div class="card-body p-md-5">
+                            <div class="row justify-content-center ps-xl-5 pe-xl-5">
+                                <h2 class="card-title h2 fw-bold pb-4 text-center">Profile Settings</h2>
+                                <div class="w-50 m-auto">
+                                    <%- include('partials/messages') -%>
+                                </div>
+                                <form action="/profile/settings/<%= loggedUser.id %>?_method=PUT" method="POST"
+                                    class="mx-1 mx-md-4">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <div class="d-flex flex-row align-items-center justify-content-center mb-4">
+                                        <i class="fas fa-user-edit fa-lg fa-fw mt-4 ms-1 me-1"></i>
+                                        <div class="w-50">
+                                            <label class="form-label" for="firstNameID">First Name</label>
+                                            <input type="text" name="name" id="firstNameID" class="form-control"
+                                                placeholder="your first name" value="<%= loggedUser.name %>" />
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center justify-content-center mb-4">
+                                        <i class="fas fa-user-edit fa-lg fa-fw mt-4 ms-1 me-1"></i>
+                                        <div class="w-50">
+                                            <label class="form-label" for="lastNameID">Last Name</label>
+                                            <input type="text" name="lastname" id="lastNameID" class="form-control"
+                                                placeholder="your last name" value="<%= loggedUser.lastname %>" />
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-row align-items-center justify-content-center mb-4">
+                                        <i class="fas fa-envelope fa-lg fa-fw mt-4 me-2"></i>
+                                        <div class="w-50">
+                                            <label class="form-label" for="emailAddressID">Email address</label>
+                                            <input type="email" name="email" id="emailAddressID" class="form-control"
+                                                placeholder="your email" value="<%= loggedUser.email %>" />
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4 pt-1">
+                                        <button type="submit" class="btn btn-success btn-lg"><i
+                                                class="fas fa-save"></i>&ensp;Save Profile</button>
+                                    </div>
+                                </form>
+                                <a class="float-right" href="/">Back to home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <%- include('partials/footer') -%>
